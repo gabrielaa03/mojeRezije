@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Moje režije</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Korisničko ime</string>
+    <string name="prompt_password">Lozinka</string>
+    <string name="or">or</string>
+    <string name="logIn">Prijavi se</string>
+    <string name="register">Registriraj se</string>
+    <string name="forgottenPass">Zaboravili ste lozinku?</string>
+    <string name="wrongPasswordOrUsername">Krivo korisničko ime ili lozinka.</string>
+
+    <!-- Strings related to registration-->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_incorrect_password">Lozinka je netočna</string>
+    <string name="error_field_required">Obavezno za unijeti.</string>
+    <string name="name">Ime i prezime:</string>
+    <string name="hint_name">npr. Marinko Mirić</string>
+    <string name="hint_Username">npr. Marinko111</string>
+    <string name="password">Lozinka:</string>
+    <string name="username">Korisničko ime:</string>
+    <string name="repeatPassword">Ponovi lozinku:</string>
+    <string name="email">Email:</string>
+    <string name="hint_email">npr. marinko@gmail.com</string>
+    <string name="error_passwordsDontMatch">Lozinke se ne podudaraju!</string>
+    <string name="chooseQuestion">Odaberite vrste računa koje dobivate</string>
+    <string-array name="questions">
+        <item>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</item>
+        <item>What is your mother\'s birthplace?</item>
+        <item>What is the name of your first pet?</item>
+        <item>What is the name of your primary school teacher?</item>
+    </string-array>
+    <string name="elementsArentEntered">Niste unijeli sve podatke.</string>
+    <string name="successfullRegistration">Uspješno ste registrirani.</string>
+    <string name="emailIsNotValid">Email nije validan.</string>
+    <string name="playerAlreadyExists">Korisničko ime je već zauzeto.</string>
+    <string name="dodajracune">Dodaj vrste računa:</string>
+    <string name="datumPlace">Unesite okviran datum plaćanja računa u mjesecu</string>
+    <string name="addrKucanstva">Adresa kućanstva</string>
+    <string name="hint_addr">npr. Matije Gupca 5, Đakovo</string>
+</resources>
