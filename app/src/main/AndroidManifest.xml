@@ -4,13 +4,35 @@
 
     <application
         android:allowBackup="true"
+        android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListOfBills"
+            android:name=".listOfBills.ListOfBills"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".registration.Registration"
+            android:label="@string/registration"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".login.Login" />
+        <activity
+            android:name=".forgPass.ForgottenPass"
+            android:label="@string/zaboravljenaLoz"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".login.Login" />
+        <activity
+            android:name=".newBill.AddNewBill"
+            android:label="@string/dodajracun"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".listOfBills.ListOfBills" />
+        <activity
+            android:name=".login.Login"
+            android:label="@string/logIn"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration" />
-        <activity android:name=".Login"></activity>
+
     </application>
 
+    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
 </manifest>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_tvrtka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:text="@string/tvrtka1" />
+
+        <TextView
+            android:id="@+id/tv_tvrtkaUpis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_tvrtka"
+            tools:text="@string/tvrtka1"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:paddingLeft="16dp"
+            android:layout_toRightOf="@+id/tv_tvrtka" />
+
+        <TextView
+            android:id="@+id/tv_datumDospijeca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tvrtka"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:text="@string/datumDostavljanja1"/>
+
+        <TextView
+            android:id="@+id/tv_datumDospijecaUpis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_datumDospijeca"
+            android:layout_below="@+id/tv_tvrtkaUpis"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:paddingLeft="16dp"
+            android:layout_toRightOf="@+id/tv_tvrtka"
+            tools:text="@string/tvrtka1"/>
+
+        <TextView
+            android:id="@+id/tv_mjesec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_datumDospijeca"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:text="@string/mjesec" />
+        <TextView
+            android:id="@+id/tv_mjesecUpis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_datumDospijecaUpis"
+            android:layout_toEndOf="@+id/tv_mjesec"
+            android:textSize="15sp"
+            android:layout_margin="8dp"
+            android:paddingLeft="16dp"
+            tools:text="5."
+            android:layout_toRightOf="@+id/tv_mjesec" />
+
+        <TextView
+            android:id="@+id/tv_stanjeUpis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mjesec"
+            tools:text="@string/neplaceniRacun"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/iznos"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape_red2"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_below="@id/tv_stanjeUpis"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="200,56kn" />
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
