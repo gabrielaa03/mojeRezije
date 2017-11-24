@@ -21,6 +21,7 @@ import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 //import com.example.gabrielaangebrandt.mojerezije.utils.FirebaseUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.SharedPrefs;
+import com.google.android.gms.vision.CameraSource;
 //import com.google.firebase.database.DataSnapshot;
 //import com.google.firebase.database.DatabaseError;
 //1import com.google.firebase.database.ValueEventListener;
@@ -125,25 +126,15 @@ public class AddNewBill extends AppCompatActivity {
 
     @OnClick(R.id.ib_camera_btn)
     public void openCamera() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+        startActivityForResult(CameraActivity.getLaunchIntent(this), CAMERA_PIC_REQUEST);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_PIC_REQUEST) {
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-//            ImageView imageview = (ImageView) findViewById(R.id.ImageView01); //sets imageview as the bitmap
-//            imageview.setImageBitmap(image);
+        if (requestCode == CAMERA_PIC_REQUEST && resultCode==RESULT_OK) {
+
+            String barcodeData = (String) data.getExtras().get(CameraActivity.KEY_EXTRA_DATA);
+            Toast.makeText(this, barcodeData, Toast.LENGTH_SHORT).show();
         }
     }
-//
-//    @Override
-//    public void onDataChange(DataSnapshot dataSnapshot) {
-//        this.dataSnapshot = dataSnapshot;
-//    }
-//
-//    @Override
-//    public void onCancelled(DatabaseError databaseError) {
-//
-//    }
+
 }

@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gabrielaangebrandt.mojerezije">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
-        android:allowBackup="true"
         android:name=".App"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -17,31 +22,35 @@
         <activity
             android:name=".registration.Registration"
             android:label="@string/registration"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".login.Login" />
+            android:parentActivityName=".login.Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".forgPass.ForgottenPass"
             android:label="@string/zaboravljenaLoz"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".login.Login" />
+            android:parentActivityName=".login.Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".newBill.AddNewBill"
             android:label="@string/dodajracun"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".listOfBills.ListOfBills" />
-        <activity
-            android:name=".login.Login"
-            android:label="@string/logIn"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".listOfBills.ListOfBills"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".login.Login"
+            android:label="@string/logIn"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+        <activity
+            android:name=".newBill.CameraActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
-    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
 </manifest>
