@@ -53,7 +53,7 @@ public class RecyclerAdapterPaid extends com.bignerdranch.expandablerecyclerview
     @Override
     public void onBindChildViewHolder(TitleChildViewHolder titleChildViewHolder, int i, Object o) {
         Bill title = (Bill) o;
-        titleChildViewHolder.datumDospijeca.setText(title.getDatumDospijeca());
+        titleChildViewHolder.datumDospijeca.setText(title.getBrojRacuna());
         titleChildViewHolder.iznos.setText(title.getIznos());
         titleChildViewHolder.mjesec.setText(String.valueOf(title.getMjesec()));
         titleChildViewHolder.stanje.setText(title.getStanje());

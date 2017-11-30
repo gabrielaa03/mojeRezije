@@ -1,20 +1,16 @@
 package com.example.gabrielaangebrandt.mojerezije.model.data_models;
 
 
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
-
-import java.util.List;
-
 import io.realm.RealmObject;
 
 public class Bill extends RealmObject {
-    private String tvrtka, datumDospijeca, stanje, iznos, naziv;
+    private String tvrtka, brojRacuna, stanje, iznos, naziv;
     int mjesec;
 
 
-    public Bill(int mjesec, String datumDospijeca , String naziv, String tvrtka, String iznos , String stanje) {
+    public Bill(int mjesec, String brojRacuna, String naziv, String tvrtka, String iznos , String stanje) {
         this.tvrtka = tvrtka;
-        this.datumDospijeca = datumDospijeca;
+        this.brojRacuna = brojRacuna;
         this.stanje = stanje;
         this.iznos = iznos;
         this.mjesec = mjesec;
@@ -40,12 +36,12 @@ public class Bill extends RealmObject {
         this.tvrtka = tvrtka;
     }
 
-    public String getDatumDospijeca() {
-        return datumDospijeca;
+    public String getBrojRacuna() {
+        return brojRacuna;
     }
 
-    public void setDatumDospijeca(String datumDospijeca) {
-        this.datumDospijeca = datumDospijeca;
+    public void setBrojRacuna(String brojRacuna) {
+        this.brojRacuna = brojRacuna;
     }
 
     public String getStanje() {

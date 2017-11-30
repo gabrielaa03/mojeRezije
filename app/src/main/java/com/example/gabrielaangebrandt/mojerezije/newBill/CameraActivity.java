@@ -63,6 +63,7 @@ public class CameraActivity extends AppCompatActivity {
                 .setAutoFocusEnabled(true)
                 .setRequestedFps(24.0f)
                 .build();
+
         startReading();
     }
 
@@ -81,6 +82,7 @@ public class CameraActivity extends AppCompatActivity {
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                //ok nothing
             }
 
             @Override
@@ -97,12 +99,11 @@ public class CameraActivity extends AppCompatActivity {
 
             @Override
             public void release() {
-
+                // ok nothing
             }
 
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
-
 
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
@@ -120,14 +121,14 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
-    private void displayData(final String barcode) {
+    private void displayData(final String barcodeText) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(barcode);
+        alertBuilder.setMessage(barcodeText);
 
         alertBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                returnBarcodeText(barcode);
+                returnBarcodeText(barcodeText);
             }
         });
 
@@ -135,6 +136,7 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
                 startReading();
             }
         });
@@ -143,10 +145,10 @@ public class CameraActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void returnBarcodeText(String barcode) {
+    private void returnBarcodeText(String barcodeText) {
         Intent extraData = new Intent();
 
-        extraData.putExtra(KEY_EXTRA_DATA, barcode);
+        extraData.putExtra(KEY_EXTRA_DATA, barcodeText);
 
         setResult(RESULT_OK, extraData);
         finish();
