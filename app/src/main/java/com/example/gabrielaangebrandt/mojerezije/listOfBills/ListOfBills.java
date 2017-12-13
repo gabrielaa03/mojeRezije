@@ -32,10 +32,13 @@ import butterknife.OnClick;
 
 public class ListOfBills extends AppCompatActivity {
 
-    @BindView(R.id.expandableRecyclerViewNonPaidBills) RecyclerView nonPaidRecyclerView;
-    @BindView(R.id.expandableRecyclerViewPaidBills) RecyclerView paidRecyclerView;
+    @BindView(R.id.expandableRecyclerViewNonPaidBills)
+    RecyclerView nonPaidRecyclerView;
+    @BindView(R.id.expandableRecyclerViewPaidBills)
+    RecyclerView paidRecyclerView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -65,14 +68,13 @@ public class ListOfBills extends AppCompatActivity {
 
     private List<ParentObject> initData() {
         TitleCreator titleCreator = TitleCreator.get(this);
-        assert titleCreator != null;
-        List<TitleParent> titles = titleCreator.getAll();
+        List<TitleParent> titles = titleCreator != null ? titleCreator.getAll() : new ArrayList<TitleParent>();
         List<ParentObject> parentObjects = new ArrayList<>();
-        for(TitleParent title :titles){
+        for (TitleParent title : titles) {
             List<Object> childList = new ArrayList<>();
             List<Bill> allBills = RealmUtils.getUsersBills("username", SharedPrefs.getSharedPrefs("username", this));
-            for(Bill bill : allBills){
-                if(bill.getStanje().equals("rb_placen")){
+            for (Bill bill : allBills) {
+                if (bill.getStanje().equals("rb_placen")) {
                     childList.add(bill);
                 }
             }
@@ -84,14 +86,13 @@ public class ListOfBills extends AppCompatActivity {
 
     private List<ParentObject> initData2() {
         TitleCreator2 titleCreator = TitleCreator2.get(this);
-        assert titleCreator != null;
-        List<TitleParent> titles = titleCreator.getAll();
+        List<TitleParent> titles = titleCreator != null ? titleCreator.getAll() : new ArrayList<TitleParent>();
         List<ParentObject> parentObjects = new ArrayList<>();
-        for(TitleParent title :titles){
+        for (TitleParent title : titles) {
             List<Object> childList = new ArrayList<>();
             List<Bill> allBills = RealmUtils.getUsersBills("username", SharedPrefs.getSharedPrefs("username", this));
-            for(Bill bill : allBills){
-                if(bill.getStanje().equals("rb_neplacen")){
+            for (Bill bill : allBills) {
+                if (bill.getStanje().equals("rb_neplacen")) {
                     childList.add(bill);
                 }
             }
@@ -103,7 +104,7 @@ public class ListOfBills extends AppCompatActivity {
 
 
     @OnClick(R.id.fab)
-    public void addNew(){
+    public void addNew() {
         startActivity(new Intent(this, AddNewBill.class));
     }
 
@@ -122,7 +123,7 @@ public class ListOfBills extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         //noinspection SimplifiableIfStatement
-         switch ( item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
             case R.id.logout:

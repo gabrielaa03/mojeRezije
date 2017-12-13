@@ -3,8 +3,8 @@
     package="com.example.gabrielaangebrandt.mojerezije">
 
     <application
-        android:allowBackup="true"
         android:name=".App"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -17,18 +17,18 @@
         <activity
             android:name=".registration.Registration"
             android:label="@string/registration"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".login.Login" />
+            android:parentActivityName=".login.Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".forgPass.ForgottenPass"
             android:label="@string/zaboravljenaLoz"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".login.Login" />
+            android:parentActivityName=".login.Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".newBill.AddNewBill"
             android:label="@string/dodajracun"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".listOfBills.ListOfBills" />
+            android:parentActivityName=".listOfBills.ListOfBills"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.Login"
             android:label="@string/logIn"
@@ -43,5 +43,5 @@
 
     </application>
 
-    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
 </manifest>
