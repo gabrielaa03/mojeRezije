@@ -100,7 +100,7 @@
                     android:layout_below="@+id/et_username"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:inputType="textPassword"
+                    android:inputType="textEmailAddress"
                     android:paddingBottom="8dp"
                     android:paddingTop="16dp"
                     android:textSize="20sp" />

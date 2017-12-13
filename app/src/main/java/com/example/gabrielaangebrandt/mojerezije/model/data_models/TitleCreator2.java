@@ -15,7 +15,7 @@ public class TitleCreator2 {
     public TitleCreator2(Context context){
         titleParents = new ArrayList<>();
         List<String> neplaceniRacuni = new ArrayList<>();
-        List<Bill> allBills = RealmUtils.getUsersBills("username", SharedPrefs.getSharedPrefs("username", context));
+        List<Bill> allBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", context));
         for(Bill bill : allBills){
             if(bill.getStanje().equals("rb_neplacen")){
                 neplaceniRacuni.add(bill.getNaziv());

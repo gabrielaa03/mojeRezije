@@ -1,5 +1,7 @@
 package com.example.gabrielaangebrandt.mojerezije.model.data_models;
 
+import com.example.gabrielaangebrandt.mojerezije.App;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,32 +12,31 @@ import io.realm.annotations.PrimaryKey;
 public class User extends RealmObject {
     @PrimaryKey
     private String username;
-    private String name,addr,email,pass;
-    private RealmList<String> listOfBillsCategory;
-    private RealmList<Bill> listOfBills;
-    String datumPlace;
+    private String name, addr, email, pass;
+    //private RealmList<String> listOfBillsCategory;
+//    private RealmList<Bill> listOfBills;
+    private String datumPlace;
 
-    public User(String username, String name, String addr, String email, String pass, RealmList<Bill> listOfBills, String datumPlace, RealmList<String> listOfBillsCategory) {
+    public User(String username, String name, String addr, String email, String pass/*, RealmList<Bill> listOfBills*/, String datumPlace/*, RealmList<String> listOfBillsCategory*/) {
         this.username = username;
         this.name = name;
         this.addr = addr;
         this.email = email;
         this.pass = pass;
-        this.listOfBills = listOfBills;
         this.datumPlace = datumPlace;
-        this.listOfBillsCategory = listOfBillsCategory;
+        //this.listOfBillsCategory = listOfBillsCategory;
     }
 
     public User() {
     }
 
-    public RealmList<String> getListOfBillsCategory() {
-        return listOfBillsCategory;
-    }
+//    public RealmList<String> getListOfBillsCategory() {
+//        return listOfBillsCategory;
+//    }
 
-    public void setListOfBillsCategory(RealmList<String> listOfBillsCategory) {
-        this.listOfBillsCategory = listOfBillsCategory;
-    }
+//    public void setListOfBillsCategory(RealmList<String> listOfBillsCategory) {
+//        this.listOfBillsCategory = listOfBillsCategory;
+//    }
 
     public String getUsername() {
         return username;
@@ -77,13 +78,13 @@ public class User extends RealmObject {
         this.pass = pass;
     }
 
-    public RealmList<Bill> getListOfBills() {
-        return listOfBills;
-    }
-
-    public void setListOfBills(RealmList<Bill> listOfBills) {
-        this.listOfBills = listOfBills;
-    }
+//    public RealmList<Bill> getListOfBills() {
+//        return listOfBills;
+//    }
+//
+//    public void setListOfBills(RealmList<Bill> listOfBills) {
+//        this.listOfBills = listOfBills;
+//    }
 
     public String getDatumPlace() {
         return datumPlace;
@@ -101,8 +102,7 @@ public class User extends RealmObject {
                 ", addr='" + addr + '\'' +
                 ", email='" + email + '\'' +
                 ", pass='" + pass + '\'' +
-                ", listOfBillsCategory=" + listOfBillsCategory +
-                ", listOfBills=" + listOfBills +
+                //", listOfBillsCategory=" + listOfBillsCategory +
                 ", datumPlace=" + datumPlace +
                 '}';
     }

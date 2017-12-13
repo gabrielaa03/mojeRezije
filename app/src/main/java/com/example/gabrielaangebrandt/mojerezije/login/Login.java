@@ -5,12 +5,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.gabrielaangebrandt.mojerezije.R;
 import com.example.gabrielaangebrandt.mojerezije.forgPass.ForgottenPass;
+import com.example.gabrielaangebrandt.mojerezije.listOfBills.Graph;
 import com.example.gabrielaangebrandt.mojerezije.listOfBills.ListOfBills;
+import com.example.gabrielaangebrandt.mojerezije.listOfBills.Upute;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 import com.example.gabrielaangebrandt.mojerezije.registration.Registration;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
@@ -73,5 +77,21 @@ public class Login extends AppCompatActivity {
     @OnClick(R.id.tv_forgotten_pass)
     public void getYourPass() {
         startActivity(new Intent(this, ForgottenPass.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+                startActivity(new Intent(this, Upute.class));
+        return super.onOptionsItemSelected(item);
     }
 }

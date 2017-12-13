@@ -43,28 +43,23 @@ public class RealmUtils {
         realm.commitTransaction();
     }
 
-    public static void saveUsersBills(RealmList<Bill> listOfBills, String username) {
+    public static void saveUsersBills(Bill bill, String username) {
+
         Realm realm = App.getRealmInstance();
         realm.beginTransaction();
-        User user = realm.where(User.class).equalTo("username", username).findFirst();
-        if (user != null) {
-            user.setListOfBills(listOfBills);
+        List<Bill> bills = realm.where(Bill.class).equalTo("user", username).findAll();
+        if(bills != null){
+            bills.add(bill);
+            realm.copyToRealmOrUpdate(bills);
         }
-
-        realm.copyToRealmOrUpdate(user);
         realm.commitTransaction();
     }
 
-    public static List<Bill> getUsersBills(String databaseElement, String value) {
+    public static List<Bill> getUsersBills(String value) {
         Realm realm = App.getRealmInstance();
         realm.beginTransaction();
-        User user = realm.where(User.class).equalTo(databaseElement, value).findFirst();
-        List<Bill> list = new ArrayList<>();
-        for (Bill bill : user.getListOfBills()) {
-            list.add(bill);
-        }
+        List<Bill> bills = realm.where(Bill.class).equalTo("user", value).findAll();
         realm.commitTransaction();
-        return list;
+        return bills;
     }
-
 }

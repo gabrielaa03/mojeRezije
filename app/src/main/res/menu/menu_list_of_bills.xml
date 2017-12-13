@@ -5,11 +5,22 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/postavke"
+        android:title="@string/postavkePodsjetnika"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_upute"
+        android:orderInCategory="100"
+        android:title="@string/upute"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"
         android:orderInCategory="100"
         android:title="@string/logout"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/graph"
+        android:icon="@drawable/icon_graph"
+        android:title=""
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -1,14 +1,17 @@
 package com.example.gabrielaangebrandt.mojerezije.model.data_models;
 
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 public class Bill extends RealmObject {
+    private String user;
     private String tvrtka, brojRacuna, stanje, iznos, naziv;
-    int mjesec;
+    private int mjesec;
+    private RealmList<Bill> realmBills = new RealmList<>();
 
-
-    public Bill(int mjesec, String brojRacuna, String naziv, String tvrtka, String iznos , String stanje) {
+    public Bill(String user, int mjesec, String brojRacuna, String naziv, String tvrtka, String iznos, String stanje) {
+        this.user = user;
         this.tvrtka = tvrtka;
         this.brojRacuna = brojRacuna;
         this.stanje = stanje;
@@ -18,6 +21,14 @@ public class Bill extends RealmObject {
     }
 
     public Bill() {
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getNaziv() {
@@ -66,6 +77,14 @@ public class Bill extends RealmObject {
 
     public void setMjesec(int mjesec) {
         this.mjesec = mjesec;
+    }
+
+    public RealmList<Bill> getRealmBills() {
+        return realmBills;
+    }
+
+    public void setRealmBills(RealmList<Bill> realmBills) {
+        this.realmBills = realmBills;
     }
 
 }

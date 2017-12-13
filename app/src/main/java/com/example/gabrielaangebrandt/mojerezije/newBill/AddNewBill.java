@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -86,8 +87,8 @@ public class AddNewBill extends AppCompatActivity {
             } else {
 //                User user = FirebaseUtils.checkIfUserExists(username, dataSnapshot);
 //                User user = RealmUtils.checkIfUserExists("username", SharedPrefs.getSharedPrefs("username", this));
-                bill = new Bill(parseInt(mjesec.getText().toString()), brojRacuna.getText().toString(), vrsta.getText().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
-                listOfBills = RealmUtils.getUsersBills("username", SharedPrefs.getSharedPrefs("username", this));
+                bill = new Bill(SharedPrefs.getSharedPrefs("username", this), parseInt(mjesec.getText().toString()), brojRacuna.getText().toString(), vrsta.getText().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
+                listOfBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
             }
         } else {
             if (vrsta.getText().toString().equals("") || tvrtka.getText().toString().equals("") || brojRacuna.getText().toString().equals("") ||
@@ -97,9 +98,8 @@ public class AddNewBill extends AppCompatActivity {
 //                User user = RealmUtils.checkIfUserExists("username", SharedPrefs.getSharedPrefs("username", this));
 //               User user = FirebaseUtils.checkIfUserExists(username, dataSnapshot);
 
-                bill = new Bill(parseInt(mjesec.getText().toString()), brojRacuna.getText().toString(), vrsta.getText().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
-                listOfBills = RealmUtils.getUsersBills("username", SharedPrefs.getSharedPrefs("username", this));
-
+                bill = new Bill(SharedPrefs.getSharedPrefs("username", this), parseInt(mjesec.getText().toString()), brojRacuna.getText().toString(), vrsta.getText().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
+                listOfBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
             }
         }
         final AlertDialog.Builder builder;
@@ -112,10 +112,7 @@ public class AddNewBill extends AppCompatActivity {
                 .setMessage(R.string.spremanjeRacuna)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        RealmList<Bill> realmlist = new RealmList<>();
-                        realmlist.addAll(listOfBills);
-                        realmlist.add(bill);
-                        RealmUtils.saveUsersBills(realmlist, SharedPrefs.getSharedPrefs("username", getApplicationContext()));
+                        RealmUtils.saveUsersBills(bill, SharedPrefs.getSharedPrefs("username", getApplicationContext()));
                         Intent intent = new Intent(getApplicationContext(), ListOfBills.class);
                         startActivity(intent);
                     }

@@ -42,13 +42,8 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
-        setUi();
-        setReader();
-    }
-
-    private void setUi() {
         ButterKnife.bind(this);
+        setReader();
     }
 
     private void setReader() {
@@ -115,7 +110,6 @@ public class CameraActivity extends AppCompatActivity {
                             displayData(barcodes.valueAt(0).displayValue);
                         }
                     });
-
                 }
             }
         });
@@ -147,9 +141,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private void returnBarcodeText(String barcodeText) {
         Intent extraData = new Intent();
-
         extraData.putExtra(KEY_EXTRA_DATA, barcodeText);
-
         setResult(RESULT_OK, extraData);
         finish();
     }

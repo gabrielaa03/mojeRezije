@@ -105,10 +105,12 @@ public class Registration extends AppCompatActivity {
                         categories.addAll(categoryList);
 
                         User user = new User(username.getText().toString(), imeIPrezime.getText().toString(), adresa.getText().toString()
-                                , email.getText().toString(), pass.getText().toString(), listOfBills, placa.getText().toString(), categories);
+                                , email.getText().toString(), pass.getText().toString(), placa.getText().toString());
                         RealmUtils.saveUser(user);
                         startActivity(new Intent(this, Login.class));
                         Toast.makeText(this, R.string.successfullRegistration, Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(this, R.string.emailIsNotValid, Toast.LENGTH_LONG).show();
                     }
                 }
             }
