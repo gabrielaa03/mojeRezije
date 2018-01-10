@@ -6,11 +6,10 @@ import io.realm.RealmObject;
 
 public class Bill extends RealmObject {
     private String user;
-    private String tvrtka, brojRacuna, stanje, iznos, naziv;
-    private int mjesec;
+    private String tvrtka, brojRacuna, stanje, iznos, naziv, mjesec;
     private RealmList<Bill> realmBills = new RealmList<>();
 
-    public Bill(String user, int mjesec, String brojRacuna, String naziv, String tvrtka, String iznos, String stanje) {
+    public Bill(String user, String mjesec, String brojRacuna, String naziv, String tvrtka, String iznos, String stanje) {
         this.user = user;
         this.tvrtka = tvrtka;
         this.brojRacuna = brojRacuna;
@@ -71,11 +70,11 @@ public class Bill extends RealmObject {
         this.iznos = iznos;
     }
 
-    public int getMjesec() {
+    public String getMjesec() {
         return mjesec;
     }
 
-    public void setMjesec(int mjesec) {
+    public void setMjesec(String mjesec) {
         this.mjesec = mjesec;
     }
 

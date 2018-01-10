@@ -4,7 +4,7 @@
 //import android.provider.SyncStateContract;
 //import android.support.annotation.RequiresApi;
 //
-//import com.example.gabrielaangebrandt.mojerezije.App;
+//import com.example.gabrielaangebrandt.mojerezije.model.App;
 //import com.example.gabrielaangebrandt.mojerezije.model.data_models.Bill;
 //import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 ////import com.google.firebase.database.DataSnapshot;

@@ -9,22 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TitleCreator {
-    static TitleCreator titleCreator;
-    List<TitleParent> titleParents;
+    private static TitleCreator titleCreator;
+    private List<TitleParent> titleParentsPaid, titleParentsNonPaid;
 
     public TitleCreator(Context context){
-        titleParents = new ArrayList<>();
+        titleParentsNonPaid = new ArrayList<>();
+        titleParentsPaid = new ArrayList<>();
         List<String> placeniRacuni = new ArrayList<>();
-        List<Bill> allBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", context));
-        for(Bill bill : allBills){
-            if(bill.getStanje().equals("rb_neplacen")){
-                placeniRacuni.add(bill.getNaziv());
-            }
+        List<String> neplaceniRacuni = new ArrayList<>();
+        List<Bill> unpaidBills = RealmUtils.getUsersUnPaidBills(SharedPrefs.getSharedPrefs("username", context));
+        List<Bill> paidBills = RealmUtils.getUsersPaidBills(SharedPrefs.getSharedPrefs("username", context));
+        for(Bill bill : unpaidBills){
+            neplaceniRacuni.add(bill.getNaziv());
         }
+        for(Bill bill : paidBills){
+            placeniRacuni.add(bill.getNaziv());
+        }
+
         for(int i = 0; i<placeniRacuni.size(); i++){
             TitleParent title = new TitleParent(placeniRacuni.get(i));
-            titleParents.add(title);
+            titleParentsPaid.add(title);
         }
+        for(int i = 0; i<neplaceniRacuni.size(); i++){
+            TitleParent title = new TitleParent(neplaceniRacuni.get(i));
+            titleParentsNonPaid.add(title);
+        }
+
     }
     public static TitleCreator get(Context context) {
         if (titleCreator == null) {
@@ -34,7 +44,10 @@ public class TitleCreator {
         return null;
     }
 
-    public List<TitleParent> getAll() {
-        return titleParents;
+    public List<TitleParent> getAllPaid() {
+        return titleParentsPaid;
+    }
+    public List<TitleParent> getAllNonPaid() {
+        return titleParentsNonPaid;
     }
 }

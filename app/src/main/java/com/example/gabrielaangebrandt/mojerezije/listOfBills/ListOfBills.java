@@ -12,14 +12,17 @@ import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.gabrielaangebrandt.mojerezije.R;
+import com.example.gabrielaangebrandt.mojerezije.graph.Graph;
 import com.example.gabrielaangebrandt.mojerezije.listOfBills.adapter.RecyclerAdapter;
 import com.example.gabrielaangebrandt.mojerezije.login.Login;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.Bill;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.TitleCreator;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.TitleParent;
 import com.example.gabrielaangebrandt.mojerezije.newBill.AddNewBill;
+import com.example.gabrielaangebrandt.mojerezije.userManual.UserManual;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.SharedPrefs;
+import com.example.gabrielaangebrandt.mojerezije.utils.WidgetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,7 @@ public class ListOfBills extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         ((RecyclerAdapter) paidRecyclerView.getAdapter()).onSaveInstanceState(outState);
-//        ((RecyclerAdapter) nonPaidRecyclerView.getAdapter()).onSaveInstanceState(outState);
+        ((RecyclerAdapter) nonPaidRecyclerView.getAdapter()).onSaveInstanceState(outState);
     }
 
     @Override
@@ -55,42 +58,38 @@ public class ListOfBills extends AppCompatActivity {
         paidRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         RecyclerAdapter paidAdapter = new RecyclerAdapter(this, initData(), true);
-//        RecyclerAdapter unpaidAdapter = new RecyclerAdapter(this, initUnpaidData(), false);
+        RecyclerAdapter unpaidAdapter = new RecyclerAdapter(this, initUnpaidData(), false);
 
         paidAdapter.setParentClickableViewAnimationDefaultDuration();
         paidAdapter.setParentAndIconExpandOnClick(true);
-//        unpaidAdapter.setParentClickableViewAnimationDefaultDuration();
-//        unpaidAdapter.setParentAndIconExpandOnClick(true);
+        unpaidAdapter.setParentClickableViewAnimationDefaultDuration();
+        unpaidAdapter.setParentAndIconExpandOnClick(true);
 
         paidRecyclerView.setAdapter(paidAdapter);
-        //nonPaidRecyclerView.setAdapter(unpaidAdapter);
+        nonPaidRecyclerView.setAdapter(unpaidAdapter);
     }
 
     private List<ParentObject> initData() {
         TitleCreator titleCreator = TitleCreator.get(this);
-        assert titleCreator != null;
-            List<TitleParent> titles = titleCreator.getAll();
+        List<TitleParent> billTitles = titleCreator != null ? titleCreator.getAllPaid() : new ArrayList<TitleParent>();
         List<ParentObject> parentObjects = new ArrayList<>();
-        for (TitleParent title : titles) {
-            List<Object> childList = new ArrayList<>();
+        for (TitleParent title : billTitles) {
+            List<Object> otherBillElements = new ArrayList<>();
             List<Bill> allBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
             for (Bill bill : allBills) {
                 if (bill.getStanje().equals("rb_placen")) {
-                    childList.add(bill);
+                    otherBillElements.add(bill);
                 }
             }
-
-            title.setChildObjectList(childList);
+            title.setChildObjectList(otherBillElements);
             parentObjects.add(title);
-
         }
         return parentObjects;
     }
 
     private List<ParentObject> initUnpaidData() {
         TitleCreator titleCreator = TitleCreator.get(this);
-        assert titleCreator != null;
-        List<TitleParent> titles = titleCreator.getAll();
+        List<TitleParent> titles = titleCreator != null ? titleCreator.getAllNonPaid() : new ArrayList<TitleParent>();
         List<ParentObject> parentObjects = new ArrayList<>();
         for (TitleParent title : titles) {
             List<Object> childList = new ArrayList<>();
@@ -131,15 +130,20 @@ public class ListOfBills extends AppCompatActivity {
                 startActivity(new Intent(this, Graph.class));
                 break;
             case R.id.action_upute:
-                startActivity(new Intent(this, Upute.class));
+                startActivity(new Intent(this, UserManual.class));
                 break;
             case R.id.logout:
                 SharedPrefs.setSharedPrefs("isLogged", "out", this);
                 startActivity(new Intent(this, Login.class));
-                Toast.makeText(this, R.string.odjava, Toast.LENGTH_SHORT).show();
+                WidgetUtils.setToast(this,  R.string.odjava);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

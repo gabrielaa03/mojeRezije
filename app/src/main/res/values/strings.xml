@@ -28,11 +28,20 @@
     <string name="hint_email">npr. marinko@gmail.com</string>
     <string name="error_passwordsDontMatch">Lozinke se ne podudaraju!</string>
     <string name="chooseQuestion">Odaberite vrste računa koje dobivate</string>
-    <string-array name="questions">
+    <string-array name="vrsteRacuna">
         <item>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</item>
-        <item>What is your mother\'s birthplace?</item>
-        <item>What is the name of your first pet?</item>
-        <item>What is the name of your primary school teacher?</item>
+        <item>Račun za Internet</item>
+        <item>Račun za vodu</item>
+        <item>Račun za struju</item>
+        <item>Račun za telefon</item>
+        <item>Račun za grijanje</item>
+        <item>RTV pristojba</item>
+        <item>Račun za osiguranje auta</item>
+        <item>Račun za životno osiguranje</item>
+        <item>Račun za osiguranje nekretnina</item>
+        <item>Račun za školovanje</item>
+        <item>Račun za dug na bankovnoj kartici</item>
+        <item>Račun za mobitel</item>
     </string-array>
     <string name="elementsArentEntered">Niste unijeli sve podatke.</string>
     <string name="successfullRegistration">Uspješno ste registrirani.</string>
@@ -40,7 +49,7 @@
     <string name="userAlreadyExists">Korisničko ime je već zauzeto.</string>
     <string name="dodajracune">Dodaj vrste računa:</string>
     <string name="dodajracun">Dodaj račun</string>
-    <string name="datumPlace">Unesite okviran datum plaćanja računa u mjesecu</string>
+    <string name="datumPodsjetnika">Kojeg datuma želite da Vas podsjetimo na neplaćene račune:</string>
     <string name="addrKucanstva">Adresa kućanstva</string>
     <string name="hint_addr">npr. Matije Gupca 5, Đakovo</string>
     <string name="placeniRacuni">Plaćeni računi</string>
@@ -58,11 +67,12 @@
     <string name="title_activity_add_new_bill">AddNewBill</string>
     <string name="vrijednostiracuna">Unos vrijednosti računa</string>
     <string name="naziv">Vrsta računa</string>
-    <string name="tvrtka">Tvrtka koja potražuje iznos</string>
-    <string name="datumDostavljanja">Datum dospijeća računa</string>
+    <string name="tvrtka">Naziv poduzeća</string>
     <string name="mjesec">Mjesec</string>
     <string name="iznos">Iznos (u kunama)</string>
     <string name="kn">kn</string>
+
+    <string name="brojRacuna">Broj računa</string>
     <string name="potvrdi">POTVRDI</string>
     <string name="placeniRacun">Plaćeni račun</string>
     <string name="neplaceniRacun">Neplaćeni račun</string>
@@ -85,4 +95,8 @@
     <string name="uputeOpis4">Korisnik može pregledati i grafički prikaz potrošenje određene vrste računa pritiskom na gumb s grafom.</string>
     <string name="new_bill">Novi račun</string>
     <string name="graf">Grafički prikaz troškova</string>
+    <string name="pass">Zatražili ste svoju lozinku - Moje režije</string>
+    <string name="mailtext">Poštovani, zatražili ste vašu lozinku od aplikacije \"Moje režije\". Vaša lozinka je: </string>
+    <string name="sendPass">Pošalji lozinku</string>
+    <string name="email_error">Lozinka ne može biti poslana.</string>
 </resources>

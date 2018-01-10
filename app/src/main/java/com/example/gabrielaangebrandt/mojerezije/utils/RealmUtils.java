@@ -1,17 +1,18 @@
 package com.example.gabrielaangebrandt.mojerezije.utils;
 
-import com.example.gabrielaangebrandt.mojerezije.App;
+import android.widget.EditText;
+
+import com.example.gabrielaangebrandt.mojerezije.model.App;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.Bill;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 //import com.google.firebase.database.DataSnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 
 public class RealmUtils {
+    private static final Realm realm = App.getRealmInstance();
 
     public static List<User> getUsers() {
         Realm realm = App.getRealmInstance();
@@ -19,7 +20,6 @@ public class RealmUtils {
     }
 
     public static User checkIfUserExists(String databaseElement, String value) {
-        Realm realm = App.getRealmInstance();
         User user = realm.where(User.class).equalTo(databaseElement, value).findFirst();
         if (user != null) {
             return user;
@@ -27,28 +27,33 @@ public class RealmUtils {
         return null;
     }
 
-    public static String getPass(String databaseElement, String value) {
-        Realm realm = App.getRealmInstance();
-        User user = realm.where(User.class).equalTo(databaseElement, value).findFirst();
-        if (user != null) {
-            return user.getPass();
-        }
-        return null;
+    public static String getPass(User user) {
+        return user.getPass();
+    }
+
+    public static String getEmail(User user) {
+        return user.getEmail();
+    }
+
+    public static String getName(User user) {
+        return user.getName();
+    }
+
+    public static User createUser(EditText username, EditText imeIPrezime, EditText adresa, EditText email, EditText pass, EditText placa) {
+        return new User(username.getText().toString(), imeIPrezime.getText().toString(), adresa.getText().toString(),
+                email.getText().toString(), pass.getText().toString(), placa.getText().toString());
     }
 
     public static void saveUser(User user) {
-        Realm realm = App.getRealmInstance();
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(user);
         realm.commitTransaction();
     }
 
     public static void saveUsersBills(Bill bill, String username) {
-
-        Realm realm = App.getRealmInstance();
         realm.beginTransaction();
-        List<Bill> bills = realm.where(Bill.class).equalTo("user", username).findAll();
-        if(bills != null){
+        List<Bill> bills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", username).findAll());
+        if (bills != null) {
             bills.add(bill);
             realm.copyToRealmOrUpdate(bills);
         }
@@ -56,9 +61,21 @@ public class RealmUtils {
     }
 
     public static List<Bill> getUsersBills(String value) {
-        Realm realm = App.getRealmInstance();
         realm.beginTransaction();
-        List<Bill> bills = realm.where(Bill.class).equalTo("user", value).findAll();
+        List<Bill> bills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", value).findAll());
+        realm.commitTransaction();
+        return bills;
+    }
+
+    public static List<Bill> getUsersPaidBills(String value) {
+        realm.beginTransaction();
+        List<Bill> bills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", value).equalTo("stanje", "rb_placen").findAll());
+        realm.commitTransaction();
+        return bills;
+    }
+    public static List<Bill> getUsersUnPaidBills(String value) {
+        realm.beginTransaction();
+        List<Bill> bills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", value).equalTo("stanje", "rb_neplacen").findAll());
         realm.commitTransaction();
         return bills;
     }

@@ -10,11 +10,14 @@ import com.example.gabrielaangebrandt.mojerezije.R;
 import com.example.gabrielaangebrandt.mojerezije.login.Login;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 //import com.example.gabrielaangebrandt.mojerezije.utils.FirebaseUtils;
+import com.example.gabrielaangebrandt.mojerezije.utils.Credentials;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
+import com.example.gabrielaangebrandt.mojerezije.utils.WidgetUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class ForgottenPass extends AppCompatActivity {
 
@@ -28,23 +31,30 @@ public class ForgottenPass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forgotten_pass_layout);
+        setContentView(R.layout.activity_forgotten_pass);
         ButterKnife.bind(this);
     }
 
     @OnClick(R.id.btn_getMyPass)
     public void getPass() {
-        if (username.getText().toString().equals("") || name.getText().toString().equals("") || email.getText().toString().equals("")) {
-            Toast.makeText(this, R.string.elementsArentEntered, Toast.LENGTH_SHORT).show();
+        if (Credentials.checkCredentials(username) || Credentials.checkCredentials(name) || Credentials.checkCredentials(email)) {
+            WidgetUtils.setToast(this, R.string.elementsArentEntered );
         } else {
             User user = RealmUtils.checkIfUserExists("username", username.getText().toString());
             assert user != null;
-            if (user.getName().equals(name.getText().toString()) && user.getEmail().equals(email.getText().toString())) {
-                //pošalji mail
-                Toast.makeText(this, user.getPass(), Toast.LENGTH_SHORT).show();
+            if (RealmUtils.getName(user).equals(name.getText().toString()) && RealmUtils.getEmail(user).equals(email.getText().toString())) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL, RealmUtils.getEmail(user));
+                intent.putExtra(Intent.EXTRA_SUBJECT, R.string.pass);
+                intent.putExtra(Intent.EXTRA_TEXT, R.string.mailtext + RealmUtils.getPass(user));
+                try {
+                    startActivity(Intent.createChooser(intent, "Pošalji lozinku"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    WidgetUtils.setToast(this,  R.string.email_error);
+                }
                 startActivity(new Intent(this, Login.class));
             } else {
-                Toast.makeText(this, R.string.kriviPodaci, Toast.LENGTH_SHORT).show();
+                WidgetUtils.setToast(this, R.string.kriviPodaci);
             }
         }
     }

@@ -12,13 +12,14 @@ import android.widget.Toast;
 
 import com.example.gabrielaangebrandt.mojerezije.R;
 import com.example.gabrielaangebrandt.mojerezije.forgPass.ForgottenPass;
-import com.example.gabrielaangebrandt.mojerezije.listOfBills.Graph;
 import com.example.gabrielaangebrandt.mojerezije.listOfBills.ListOfBills;
-import com.example.gabrielaangebrandt.mojerezije.listOfBills.Upute;
+import com.example.gabrielaangebrandt.mojerezije.userManual.UserManual;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.User;
 import com.example.gabrielaangebrandt.mojerezije.registration.Registration;
+import com.example.gabrielaangebrandt.mojerezije.utils.Credentials;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.SharedPrefs;
+import com.example.gabrielaangebrandt.mojerezije.utils.WidgetUtils;
 
 import java.util.Objects;
 
@@ -31,7 +32,6 @@ public class Login extends AppCompatActivity {
     EditText username;
     @BindView(R.id.et_password)
     EditText password;
-//    DataSnapshot dataSnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,11 @@ public class Login extends AppCompatActivity {
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @OnClick(R.id.btn_login1)
     public void logIn() {
-        if (Objects.equals(username.getText().toString(), "") || Objects.equals(password.getText().toString(), "")) {
-            Toast.makeText(this, R.string.wrongPasswordOrUsername, Toast.LENGTH_SHORT).show();
+        if (Credentials.checkCredentials(username) || Credentials.checkCredentials(password)) {
+            WidgetUtils.setToast(this, R.string.wrongPasswordOrUsername);
         } else {
-//            User user = FirebaseUtils.checkIfUserExists(username.getText().toString(), dataSnapshot);
             User user = RealmUtils.checkIfUserExists("username", username.getText().toString());
             if (user != null) {
                 if (user.getPass().equals(password.getText().toString())) {
@@ -61,10 +58,10 @@ public class Login extends AppCompatActivity {
                     SharedPrefs.setSharedPrefs("isLogged", "in", this);
                     startActivity(new Intent(this, ListOfBills.class));
                 } else {
-                    Toast.makeText(this, R.string.wrongPasswordOrUsername, Toast.LENGTH_SHORT).show();
+                    WidgetUtils.setToast(this,  R.string.wrongPasswordOrUsername);
                 }
             } else {
-                Toast.makeText(this, R.string.wrongPasswordOrUsername, Toast.LENGTH_SHORT).show();
+                WidgetUtils.setToast(this,  R.string.wrongPasswordOrUsername);
             }
         }
     }
@@ -81,17 +78,13 @@ public class Login extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-                startActivity(new Intent(this, Upute.class));
+        startActivity(new Intent(this, UserManual.class));
         return super.onOptionsItemSelected(item);
     }
 }

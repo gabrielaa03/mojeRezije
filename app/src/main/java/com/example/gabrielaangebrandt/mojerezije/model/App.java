@@ -1,4 +1,4 @@
-package com.example.gabrielaangebrandt.mojerezije;
+package com.example.gabrielaangebrandt.mojerezije.model;
 
 import android.app.Application;
 

@@ -50,7 +50,6 @@ public class CameraActivity extends AppCompatActivity {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.PDF417)
                 .build();
-
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -58,7 +57,6 @@ public class CameraActivity extends AppCompatActivity {
                 .setAutoFocusEnabled(true)
                 .setRequestedFps(24.0f)
                 .build();
-
         startReading();
     }
 
@@ -77,7 +75,6 @@ public class CameraActivity extends AppCompatActivity {
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                //ok nothing
             }
 
             @Override
@@ -85,23 +82,17 @@ public class CameraActivity extends AppCompatActivity {
                 cameraSource.stop();
             }
         });
-
         handleDetections();
     }
 
     private void handleDetections() {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-
             @Override
             public void release() {
-                // ok nothing
             }
-
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
-
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-
                 if (barcodes.size() != 0) {
                     cameraView.post(new Runnable() {
                         @Override
