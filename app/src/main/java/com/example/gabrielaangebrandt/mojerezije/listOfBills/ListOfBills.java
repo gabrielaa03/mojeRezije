@@ -22,7 +22,6 @@ import com.example.gabrielaangebrandt.mojerezije.newBill.AddNewBill;
 import com.example.gabrielaangebrandt.mojerezije.userManual.UserManual;
 import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.SharedPrefs;
-import com.example.gabrielaangebrandt.mojerezije.utils.WidgetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class ListOfBills extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         ((RecyclerAdapter) paidRecyclerView.getAdapter()).onSaveInstanceState(outState);
-        ((RecyclerAdapter) nonPaidRecyclerView.getAdapter()).onSaveInstanceState(outState);
+//        ((RecyclerAdapter) nonPaidRecyclerView.getAdapter()).onSaveInstanceState(outState);
     }
 
     @Override
@@ -71,17 +70,17 @@ public class ListOfBills extends AppCompatActivity {
 
     private List<ParentObject> initData() {
         TitleCreator titleCreator = TitleCreator.get(this);
-        List<TitleParent> billTitles = titleCreator != null ? titleCreator.getAllPaid() : new ArrayList<TitleParent>();
+        List<TitleParent> titles = titleCreator != null ? titleCreator.getAllPaid() : new ArrayList<TitleParent>();
         List<ParentObject> parentObjects = new ArrayList<>();
-        for (TitleParent title : billTitles) {
-            List<Object> otherBillElements = new ArrayList<>();
+        for (TitleParent title : titles) {
+            List<Object> childList = new ArrayList<>();
             List<Bill> allBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
             for (Bill bill : allBills) {
                 if (bill.getStanje().equals("rb_placen")) {
-                    otherBillElements.add(bill);
+                    childList.add(bill);
                 }
             }
-            title.setChildObjectList(otherBillElements);
+            title.setChildObjectList(childList);
             parentObjects.add(title);
         }
         return parentObjects;
@@ -135,7 +134,7 @@ public class ListOfBills extends AppCompatActivity {
             case R.id.logout:
                 SharedPrefs.setSharedPrefs("isLogged", "out", this);
                 startActivity(new Intent(this, Login.class));
-                WidgetUtils.setToast(this,  R.string.odjava);
+                Toast.makeText(this, R.string.odjava, Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -144,6 +143,7 @@ public class ListOfBills extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        initData();
     }
 
     @Override

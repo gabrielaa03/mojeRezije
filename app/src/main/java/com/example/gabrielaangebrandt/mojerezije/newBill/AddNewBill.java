@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -60,9 +62,9 @@ public class AddNewBill extends AppCompatActivity {
     List<Bill> listOfBills = new ArrayList<>();
     Bill bill;
     private int CAMERA_PIC_REQUEST = 9000;
-    Calendar myCalendar;
-    SimpleDateFormat sdf;
-
+    private Calendar myCalendar;
+    private SimpleDateFormat sdf;
+    private DatePickerDialog dpd = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +133,8 @@ public class AddNewBill extends AppCompatActivity {
     @OnClick(R.id.et_mjesec)
     public void pickMonth() {
         createDialogWithoutDateField().show();
-    }
+        updateLabel();
+          }
 
     private void updateLabel() {
         String myFormat = "yy/MM"; //In which you need put here
@@ -156,9 +159,8 @@ public class AddNewBill extends AppCompatActivity {
             mjesec.setText(new StringBuilder(string[1]).insert(string[1].length() - 2, "/").toString());
         }
     }
-
     private DatePickerDialog createDialogWithoutDateField() {
-        DatePickerDialog dpd = new DatePickerDialog(this, null, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), 24);
+        dpd = new DatePickerDialog(this, null, 2014, 1, 24);
         try {
             java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
             for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
@@ -179,7 +181,6 @@ public class AddNewBill extends AppCompatActivity {
         }
         catch (Exception ex) {
         }
-        updateLabel();
         return dpd;
     }
 }
