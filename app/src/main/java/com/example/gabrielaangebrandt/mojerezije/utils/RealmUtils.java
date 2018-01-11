@@ -52,10 +52,10 @@ public class RealmUtils {
 
     public static void saveUsersBills(Bill bill, String username) {
         realm.beginTransaction();
-        List<Bill> bills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", username).findAll());
-        if (bills != null) {
-            bills.add(bill);
-            realm.copyToRealmOrUpdate(bills);
+        List<Bill> listOfBills = realm.copyFromRealm(realm.where(Bill.class).equalTo("user", username).findAll());
+        if (listOfBills != null) {
+            listOfBills.add(bill);
+            realm.copyToRealmOrUpdate(listOfBills);
         }
         realm.commitTransaction();
     }

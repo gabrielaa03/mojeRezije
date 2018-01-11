@@ -56,7 +56,6 @@
     <string name="neplaceniRacuni">Neplaćeni računi</string>
     <string name="title_activity_login2">Login2</string>
     <string name="registration">Registracija</string>
-    <string name="datumDostavljanja1">Datum dospijeća računa:</string>
     <string name="tvrtka1">Tvrtka:</string>
 
     <!--GET PASS-->
@@ -99,4 +98,5 @@
     <string name="mailtext">Poštovani, zatražili ste vašu lozinku od aplikacije \"Moje režije\". Vaša lozinka je: </string>
     <string name="sendPass">Pošalji lozinku</string>
     <string name="email_error">Lozinka ne može biti poslana.</string>
+    <string name="stanjeRacuna">Niste odabrali stanje računa.</string>
 </resources>

@@ -3,8 +3,10 @@ package com.example.gabrielaangebrandt.mojerezije.model.data_models;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Bill extends RealmObject {
+    @PrimaryKey
     private String user;
     private String tvrtka, brojRacuna, stanje, iznos, naziv, mjesec;
     private RealmList<Bill> realmBills = new RealmList<>();

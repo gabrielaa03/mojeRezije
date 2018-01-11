@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_margin="8dp"
+            android:textStyle="bold"
             android:text="@string/tvrtka1" />
 
         <TextView
@@ -23,8 +24,10 @@
             android:layout_toEndOf="@+id/tv_tvrtka"
             tools:text="@string/tvrtka1"
             android:textSize="16sp"
-            android:layout_margin="8dp"
-            android:paddingLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
             android:layout_toRightOf="@+id/tv_tvrtka" />
 
         <TextView
@@ -34,7 +37,8 @@
             android:layout_below="@+id/tv_tvrtka"
             android:textSize="16sp"
             android:layout_margin="8dp"
-            android:text="@string/datumDostavljanja1"/>
+            android:textStyle="bold"
+            android:text="@string/brojRacuna"/>
 
         <TextView
             android:id="@+id/tv_datumDospijecaUpis"
@@ -43,8 +47,9 @@
             android:layout_toEndOf="@+id/tv_datumDospijeca"
             android:layout_below="@+id/tv_tvrtkaUpis"
             android:textSize="16sp"
-            android:layout_margin="8dp"
-            android:paddingLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_toRightOf="@+id/tv_tvrtka"
             tools:text="@string/tvrtka1"/>
 
@@ -54,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_datumDospijeca"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_margin="8dp"
             android:text="@string/mjesec" />
         <TextView
@@ -63,7 +69,9 @@
             android:layout_below="@id/tv_datumDospijecaUpis"
             android:layout_toEndOf="@+id/tv_mjesec"
             android:textSize="16sp"
-            android:layout_margin="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:paddingLeft="8dp"
             tools:text="5."
             android:layout_toRightOf="@+id/tv_mjesec" />
@@ -74,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_mjesec"
             tools:text="@string/placeniRacun"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/green"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"

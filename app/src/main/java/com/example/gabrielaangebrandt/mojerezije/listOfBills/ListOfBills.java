@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.gabrielaangebrandt.mojerezije.R;
 import com.example.gabrielaangebrandt.mojerezije.graph.Graph;
@@ -24,7 +25,9 @@ import com.example.gabrielaangebrandt.mojerezije.utils.RealmUtils;
 import com.example.gabrielaangebrandt.mojerezije.utils.SharedPrefs;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,13 +41,13 @@ public class ListOfBills extends AppCompatActivity {
     RecyclerView paidRecyclerView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    RecyclerAdapter paidAdapter;
+    RecyclerAdapter unpaidAdapter;
 
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        ((RecyclerAdapter) paidRecyclerView.getAdapter()).onSaveInstanceState(outState);
-//        ((RecyclerAdapter) nonPaidRecyclerView.getAdapter()).onSaveInstanceState(outState);
     }
 
     @Override
@@ -56,11 +59,12 @@ public class ListOfBills extends AppCompatActivity {
         nonPaidRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         paidRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        RecyclerAdapter paidAdapter = new RecyclerAdapter(this, initData(), true);
-        RecyclerAdapter unpaidAdapter = new RecyclerAdapter(this, initUnpaidData(), false);
+        paidAdapter = new RecyclerAdapter(this, initData(), true);
+        unpaidAdapter = new RecyclerAdapter(this, initUnpaidData(), false);
 
         paidAdapter.setParentClickableViewAnimationDefaultDuration();
         paidAdapter.setParentAndIconExpandOnClick(true);
+
         unpaidAdapter.setParentClickableViewAnimationDefaultDuration();
         unpaidAdapter.setParentAndIconExpandOnClick(true);
 
@@ -143,7 +147,6 @@ public class ListOfBills extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
     }
 
     @Override

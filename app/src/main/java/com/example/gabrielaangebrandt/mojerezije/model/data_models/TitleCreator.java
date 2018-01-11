@@ -20,10 +20,10 @@ public class TitleCreator {
         List<Bill> unpaidBills = RealmUtils.getUsersUnPaidBills(SharedPrefs.getSharedPrefs("username", context));
         List<Bill> paidBills = RealmUtils.getUsersPaidBills(SharedPrefs.getSharedPrefs("username", context));
         for(Bill bill : unpaidBills){
-            neplaceniRacuni.add(bill.getNaziv());
+            neplaceniRacuni.add(bill.getNaziv() + ", " + bill.getMjesec());
         }
         for(Bill bill : paidBills){
-            placeniRacuni.add(bill.getNaziv());
+            placeniRacuni.add(bill.getNaziv() + ", " + bill.getMjesec());
         }
 
         for(int i = 0; i<placeniRacuni.size(); i++){
@@ -32,6 +32,7 @@ public class TitleCreator {
         }
         for(int i = 0; i<neplaceniRacuni.size(); i++){
             TitleParent title = new TitleParent(neplaceniRacuni.get(i));
+
             titleParentsNonPaid.add(title);
         }
 

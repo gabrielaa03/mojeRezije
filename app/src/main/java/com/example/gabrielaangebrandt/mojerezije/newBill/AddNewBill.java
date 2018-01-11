@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -57,6 +59,8 @@ public class AddNewBill extends AppCompatActivity {
     RadioButton rb_placen;
     @BindView(R.id.rb_neplacen)
     RadioButton rb_neplacen;
+    @BindView(R.id.radio_group)
+    RadioGroup radioGroup;
     String barcodeData;
 
     List<Bill> listOfBills = new ArrayList<>();
@@ -65,6 +69,7 @@ public class AddNewBill extends AppCompatActivity {
     private Calendar myCalendar;
     private SimpleDateFormat sdf;
     private DatePickerDialog dpd = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,33 +78,43 @@ public class AddNewBill extends AppCompatActivity {
         setWidgets();
     }
 
+    @SuppressLint("ResourceType")
     private void setWidgets() {
         rb_neplacen.setChecked(true);
+        rb_placen.setId(1);
+        rb_neplacen.setId(2);
         WidgetUtils.setSpinner(vrsta, this);
         myCalendar = Calendar.getInstance();
     }
 
     @OnClick(R.id.btn_potvrdi)
     public void addBill() {
-        if (rb_placen.isChecked()) {
-            if (Credentials.checkCredentialsSpinner(vrsta) || Credentials.checkCredentials(tvrtka) || Credentials.checkCredentials(brojRacuna) ||
-                    Credentials.checkCredentials(mjesec) || Credentials.checkCredentials(iznos)) {
-                WidgetUtils.setToast(this, R.string.elementsArentEntered);
-            } else {
-                listOfBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
-            }
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
+            WidgetUtils.setToast(this, R.string.stanjeRacuna);
         } else {
-            if (Credentials.checkCredentialsSpinner(vrsta) || Credentials.checkCredentials(tvrtka) || Credentials.checkCredentials(brojRacuna) ||
-                    Credentials.checkCredentials(mjesec) || Credentials.checkCredentials(iznos)) {
-                WidgetUtils.setToast(this, R.string.elementsArentEntered);
+          int selectedId = radioGroup.getCheckedRadioButtonId();
+            if (selectedId == 1) {
+                if (Credentials.checkCredentialsSpinner(vrsta) || Credentials.checkCredentials(tvrtka) || Credentials.checkCredentials(brojRacuna) ||
+                        Credentials.checkCredentials(mjesec) || Credentials.checkCredentials(iznos)) {
+                    WidgetUtils.setToast(this, R.string.elementsArentEntered);
+                } else {
+                    bill = null;
+                    bill = new Bill(SharedPrefs.getSharedPrefs("username", this), mjesec.getText().toString(), brojRacuna.getText().toString(), vrsta.getSelectedItem().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
+                }
             } else {
-                bill = new Bill(SharedPrefs.getSharedPrefs("username", this), mjesec.getText().toString(), brojRacuna.getText().toString(), vrsta.getSelectedItem().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_placen");
-                listOfBills = RealmUtils.getUsersBills(SharedPrefs.getSharedPrefs("username", this));
+                if (Credentials.checkCredentialsSpinner(vrsta) || Credentials.checkCredentials(tvrtka) || Credentials.checkCredentials(brojRacuna) ||
+                        Credentials.checkCredentials(mjesec) || Credentials.checkCredentials(iznos)) {
+                    WidgetUtils.setToast(this, R.string.elementsArentEntered);
+                } else {
+                    bill = null;
+                    bill = new Bill(SharedPrefs.getSharedPrefs("username", this), mjesec.getText().toString(), brojRacuna.getText().toString(), vrsta.getSelectedItem().toString(), tvrtka.getText().toString(), iznos.getText().toString(), "rb_neplacen");
+                }
             }
         }
         startDialog();
 
     }
+
     private void startDialog() {
         final AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -133,8 +148,7 @@ public class AddNewBill extends AppCompatActivity {
     @OnClick(R.id.et_mjesec)
     public void pickMonth() {
         createDialogWithoutDateField().show();
-        updateLabel();
-          }
+    }
 
     private void updateLabel() {
         String myFormat = "yy/MM"; //In which you need put here
@@ -159,8 +173,9 @@ public class AddNewBill extends AppCompatActivity {
             mjesec.setText(new StringBuilder(string[1]).insert(string[1].length() - 2, "/").toString());
         }
     }
+
     private DatePickerDialog createDialogWithoutDateField() {
-        dpd = new DatePickerDialog(this, null, 2014, 1, 24);
+        dpd = new DatePickerDialog(this, date, 2017, 1, 24);
         try {
             java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
             for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
@@ -178,10 +193,19 @@ public class AddNewBill extends AppCompatActivity {
                     }
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
         }
         return dpd;
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
 }
 

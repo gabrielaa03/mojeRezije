@@ -14,7 +14,6 @@ import com.example.gabrielaangebrandt.mojerezije.R;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.Bill;
 import com.example.gabrielaangebrandt.mojerezije.model.data_models.TitleParent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,17 +64,28 @@ public class RecyclerAdapter extends com.bignerdranch.expandablerecyclerview.Ada
     @Override
     public void onBindChildViewHolder(TitleChildViewHolder titleChildViewHolder, int i, Object o) {
         Bill title = (Bill) o;
-        titleChildViewHolder.datumDospijeca.setText(title.getBrojRacuna());
-        titleChildViewHolder.iznos.setText(title.getIznos());
-        titleChildViewHolder.mjesec.setText(String.valueOf(title.getMjesec()));
-        titleChildViewHolder.stanje.setText(title.getStanje());
+        titleChildViewHolder.brojRacuna.setText(title.getBrojRacuna());
+        titleChildViewHolder.iznos.setText(title.getIznos() + " kn");
+        titleChildViewHolder.mjesec.setText(String.valueOf(title.getMjesec()) + "       (godina/mjesec)");
+        titleChildViewHolder.stanje.setText(checkState(title.getStanje()));
         titleChildViewHolder.tvrtka.setText(title.getTvrtka());
+
+    }
+
+    private String checkState(String stanje) {
+
+        if(stanje.equals("rb_placen")){
+            return "Plaćeni račun";
+        }else{
+            return "Neplaćeni račun";
+        }
+
     }
 
     public class TitleChildViewHolder extends ChildViewHolder {
 
         @BindView(R.id.tv_datumDospijecaUpis)
-        TextView datumDospijeca;
+        TextView brojRacuna;
         @BindView(R.id.tv_mjesecUpis)
         TextView mjesec;
         @BindView(R.id.tv_stanjeUpis)
